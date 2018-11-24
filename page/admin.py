@@ -1,3 +1,4 @@
 from django.contrib import admin
+from page.models import Category, Good
 
-# Register your models here.
+admin.register(Category, Good)(admin.ModelAdmin)
