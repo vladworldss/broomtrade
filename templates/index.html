@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ category.name}}</title>
+</head>
+<body>
+    <h1>Список товаров</h1>
+    <h2>Категории:</h2>
+    <ul>
+        {% for cat in cats %}
+            <li><a href="/goods/{{ cat.id}}/">{{ cat.name }}</a> </li>
+        {% endfor %}
+    </ul>
+    <h2>Товары:</h2>
+    <table>
+        <tr>
+            <th>Название</th>
+            <th>Есть в наличии</th>
+        </tr>
+        {% for good in goods %}
+            <tr>
+                <td><a href="/goods/good/{{ good.id }}/">{{ good.name }}</a></td>
+                <td>{% if good.in_stock %} + {% endif %}</td>
+            </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
