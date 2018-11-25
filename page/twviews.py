@@ -1,6 +1,7 @@
-from django.views.generic.base import ContextMixin
+from django.views.generic.base import ContextMixin, TemplateView
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
+from django.shortcuts import redirect
 from django.views.generic.edit import (
     CreateView, UpdateView, DeleteView, ProcessFormView
 )
@@ -88,6 +89,41 @@ class GoodCreate(CreateView, GoodEditMixin):
         return context
 
 
+class _GoodCreate(TemplateView):
+    form = None
+    template_name = 'good_add.html'
+    # form_class = GoodForm
+
+    def get(self, request, *args, **kwargs):
+        if self.kwargs['cat_id'] is None:
+            cat = Category.objects.first()
+        else:
+            cat = Category.objects.get(pk=self.kwargs['cat_id'])
+        self.form = GoodForm(initial={'category': cat})
+        return super().get(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['form'] = self.form
+        return context
+
+    def post(self, request, *args, **kwargs):
+        if self.kwargs['cat_id'] is None:
+            cat = Category.objects.first()
+        else:
+            cat = Category.objects.get(pk=self.kwargs['cat_id'])
+        self.form = GoodForm(request.POST)
+        if self.form.is_valid():
+            good = Good(name=self.form.cleaned_data['name'],
+                        description=self.form.cleaned_data['description'],
+                        category=self.form.cleaned_data['category'],
+                        in_stock=self.form.cleaned_data['in_stock'])
+            good.save()
+            return redirect('index',  cat_id=cat.id)
+        else:
+            return super().get(request, *args, **kwargs)
+
+
 class GoodUpdate(UpdateView, GoodEditMixin, GoodEditView):
     model = Good
     form_class = GoodForm
@@ -99,6 +135,31 @@ class GoodUpdate(UpdateView, GoodEditMixin, GoodEditView):
         cat_id = Good.objects.get(pk=kwargs['good_id']).category.id
         self.success_url = reverse("index", kwargs={'cat_id': cat_id})
         return super().post(request, *args, **kwargs)
+
+
+class _GoodUpdate(TemplateView):
+    form = None
+    template_name = 'good_edit.html'
+
+    def get(self, request, *args, **kwargs):
+        self.form = GoodForm(instance=Good.objects.get(pk=self.kwargs['good_id']))
+        return super().get(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['good'] = Good.objects.get(pk=self.kwargs['good_id'])
+        context['form'] = self.form
+        return context
+
+    def post(self, request, *args, **kwargs):
+        good = Good.objects.get(pk=self.kwargs['good_id'])
+        self.form = GoodForm(request.POST, instance=good)
+        if self.form.is_valid():
+            self.form.save()
+            return redirect('index', cat_id=good.category.id)
+        else:
+            return super().get(request, *args, **kwargs)
+
 
 
 class GoodDelete(DeleteView, GoodEditMixin, GoodEditView):
