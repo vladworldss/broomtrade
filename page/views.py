@@ -1,14 +1,11 @@
 from django.shortcuts import render
-from django.http import HttpResponse, Http404
+from django.http import Http404
 from django.core.paginator import Paginator, InvalidPage
 from .models import Category,Good
 
 
 def index(request, cat_id):
-    try:
-        page_num = request.GET['page']
-    except KeyError:
-        page_num = 1
+    page_num = request.GET.get('page', 1)
     cats = Category.objects.all().order_by('name')
     if not cat_id:
         cat = Category.objects.first()
@@ -27,10 +24,7 @@ def index(request, cat_id):
 
 
 def good(request, good_id):
-    try:
-        page_num = request.GET['page']
-    except KeyError:
-        page_num = 1
+    page_num = request.GET.get('page', 1)
     cats = Category.objects.all().order_by('name')
     try:
         good = Good.objects.get(pk=good_id)
