@@ -1,8 +1,6 @@
 from django.urls import re_path
 from page import views
-from page.twviews import GoodListView, GoodDetailView
-from page.forms import GoodCreate, GoodUpdate, GoodDelete
-
+from page.twviews import GoodListView, GoodDetailView, GoodCreate, GoodUpdate, GoodDelete
 
 urlpatterns = [
     # re_path(r'^(?:(?P<cat_id>\d+)/)?$', views.index, name='index'),
