@@ -1,0 +1,28 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <link type="text/css" href="{% static "main.css" %}" rel="stylesheet">
+    <title>{% block title %}{% endblock %} :: Все для уборки</title>
+</head>
+<body>
+    <div id="header">
+        <h1>Все для уборки</h1>
+    </div>
+    <div id="leftmenu">
+        <ul>
+            {% for cat in cats %}
+                <li><a href="/goods/{{ cat.id}}/">{{ cat.name }}</a> </li>
+            {% endfor %}
+        </ul>
+    </div>
+    <div id="main">
+        {% block main %}
+        {% endblock %}
+    </div>
+    <div id="footer">
+        <p>Все права принадлежат разработчикам сайта.</p>
+    </div>
+</body>
+</html>

@@ -1,32 +1,11 @@
-{% load staticfiles %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <link type="text/css" href="{% static "main.css" %}" rel="stylesheet">
-    <title>{{ good.name }} :: {{ good.category.name }} :: Все для уборки</title>
-</head>
-<body>
-    <div id="header">
-        <h1>Все для уборки</h1>
-    </div>
-
-    <div id="leftmenu">
-        <ul>
-            {% for cat in cats %}
-                <li><a href="/goods/{{ cat.id }}/">{{ cat.name }}</a> </li>
-            {% endfor %}
-        </ul>
-    </div>
-    <div id="main">
-        <h2>{{ good.name }}</h2>
-        <p class="category">Категория: {{ good.category.name }}</p>
-        <p>{{ good.description|linebreaksbr }}</p>
-        <p>{% if not good.in_stock %} Нет в наличии! {% endif %}</p>
-        <p class="not-in-stock"><a href="/goods/{{ good.category.id }}/">Назад</a></p>
-    </div>
-    <div id="footer">
-        <p>Все права принадлежат разработчикам сайта.</p>
-    </div>
-</body>
-</html>
+{% extends "base.html" %}
+{% block title %}
+    {{ good.name }} :: {{ good.category.name }}
+{% endblock %}
+{%  block main %}
+    <h2>{{ good.name }}</h2>
+    <p class="category">Категория: {{ good.category.name }}</p>
+    <p>{{ good.description|linebreaksbr }}</p>
+    <p>{% if not good.in_stock %} Нет в наличии! {% endif %}</p>
+    <p class="not-in-stock"><a href="/goods/{{ good.category.id }}/">Назад</a></p>
+{% endblock %}
