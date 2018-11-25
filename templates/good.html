@@ -8,7 +8,7 @@
     <p>{{ good.description|linebreaksbr }}</p>
     <p>{% if not good.in_stock %} Нет в наличии! {% endif %}</p>
     <p class="not-in-stock">
-        {% url "index" cat_id=good.category.id as before_url%}
-        <a href="{{ before_url }}?page={{ pn }}">Назад</a>
+        {% url "index" cat_id=good.category.id as category_url%}
+        <a href="{{ category_url }}?page={{ pn }}">Назад</a>
     </p>
 {% endblock %}

@@ -12,7 +12,7 @@
         {% for good in goods %}
             <tr>
                 <td>
-                    <a href="{% url "good" good_id=good.id %}?page={{ goods.bumber }}">
+                    <a href="{% url "good" good_id=good.id %}?page={{ goods.number }}">
                         {{ good.name }}
                     </a>
                 </td>
@@ -24,20 +24,19 @@
         <div id="pagination">
             {% if goods.has_previous %}
                 <div id="previous-page">
-                    <a href="{% url "index" cat_id=category.pk %}?page={{ goods.previous_page_number }}">
+                    {% url "index" cat_id=category.pk as category_url%}
+                    <a href="{{ category_url }}?page={{ goods.previous_page_number }}">
                         &lt;
                     </a>
                 </div>
             {% endif %}
-
             {% if goods.has_next %}
                 <div id="next-page">
-                    <a href="{% url "index" cat_id=category.pk %}?page={{ goods.next_page_number }}">
+                    <a href="{{ category_url }}?page={{ goods.next_page_number }}">
                         &gt;
                     </a>
                 </div>
             {% endif %}
-
             <div id="num-pages">
                 {%  for pn in goods.paginator.page_range %}
                     {% if not forloop.first %}
