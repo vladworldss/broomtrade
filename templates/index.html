@@ -11,7 +11,11 @@
         </tr>
         {% for good in goods %}
             <tr>
-                <td><a href="{% url "good" good_id=good.id %}">{{ good.name }}</a></td>
+                <td>
+                    <a href="{% url "good" good_id=good.id %}?page={{ goods.bumber }}">
+                        {{ good.name }}
+                    </a>
+                </td>
                 <td class="centered">{% if good.in_stock %} + {% endif %}</td>
             </tr>
         {% endfor %}
