@@ -1,6 +1,6 @@
 from django import forms
 from .models import Category, Good
-
+from .validator import validate_positive, validate_price
 
 NAME_ERROR_LIST = {'required': 'Укажите название товара',
                    'min_length': 'Слишком короткое название',
@@ -23,4 +23,9 @@ class GoodForm(forms.ModelForm):
         empty_label=None
     )
     in_stock = forms.BooleanField(initial=True, label='Есть в наличии')
+    price = forms.FloatField(label='Цена', validators=(validate_positive, ))
 
+    def clean(self):
+        cleaned_data = super().clean()
+        validate_price(cleaned_data)
+        return cleaned_data
