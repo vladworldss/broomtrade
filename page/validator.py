@@ -8,6 +8,6 @@ def validate_positive(value):
 
 
 def validate_price(cleaned_data):
-    if cleaned_data['price'] == cleaned_data['new_price']:
+    if cleaned_data.get('price', 0) < cleaned_data.get('old_price', 0):
         raise ValidationError('Цена с учетом скидки должна быть меньше!',
                               code='invalid')

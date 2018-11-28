@@ -6,6 +6,7 @@ from django.views.generic.edit import (
     CreateView, UpdateView, DeleteView, ProcessFormView
 )
 from django.urls import reverse
+from django.contrib import messages
 from .models import Category, Good
 from .forms import GoodForm
 
@@ -92,7 +93,6 @@ class GoodCreate(CreateView, GoodEditMixin):
 class _GoodCreate(TemplateView):
     form = None
     template_name = 'good_add.html'
-    # form_class = GoodForm
 
     def get(self, request, *args, **kwargs):
         if self.kwargs['cat_id'] is None:
@@ -105,6 +105,9 @@ class _GoodCreate(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['form'] = self.form
+        cat = Category.objects.get(pk=self.kwargs['cat_id'])
+        context['category'] = cat
+        context['pn'] = self.request.GET.get('page', 1)
         return context
 
     def post(self, request, *args, **kwargs):
@@ -115,9 +118,11 @@ class _GoodCreate(TemplateView):
         self.form = GoodForm(request.POST)
         if self.form.is_valid():
             good = Good(name=self.form.cleaned_data['name'],
+                        price=self.form.cleaned_data['price'],
                         description=self.form.cleaned_data['description'],
                         category=self.form.cleaned_data['category'],
-                        in_stock=self.form.cleaned_data['in_stock'])
+                        in_stock=self.form.cleaned_data['in_stock']
+                        )
             good.save()
             return redirect('index',  cat_id=cat.id)
         else:

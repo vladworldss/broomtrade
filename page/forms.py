@@ -12,6 +12,7 @@ class GoodForm(forms.ModelForm):
     class Meta:
         model = Good
         fields = '__all__'
+        widgets = {'description': forms.Textarea, 'category': forms.RadioSelect}
 
     name = forms.CharField(label='Название', help_text='Должно быть уникальным',
                            error_messages=NAME_ERROR_LIST
@@ -20,7 +21,8 @@ class GoodForm(forms.ModelForm):
     category = forms.ModelChoiceField(
         queryset=Category.objects.all(),
         label='Категория',
-        empty_label=None
+        empty_label=None,
+        # widget=forms.RadioSelect
     )
     in_stock = forms.BooleanField(initial=True, label='Есть в наличии')
     price = forms.FloatField(label='Цена', validators=(validate_positive, ))
