@@ -7,6 +7,7 @@ from django.views.generic.edit import (
 )
 from django.urls import reverse
 from django.contrib import messages
+from django.contrib.messages.views import SuccessMessageMixin
 from .models import Category, Good
 from .forms import GoodForm
 
@@ -117,13 +118,8 @@ class _GoodCreate(TemplateView):
             cat = Category.objects.get(pk=self.kwargs['cat_id'])
         self.form = GoodForm(request.POST)
         if self.form.is_valid():
-            good = Good(name=self.form.cleaned_data['name'],
-                        price=self.form.cleaned_data['price'],
-                        description=self.form.cleaned_data['description'],
-                        category=self.form.cleaned_data['category'],
-                        in_stock=self.form.cleaned_data['in_stock']
-                        )
-            good.save()
+            self.form.save()
+            messages.add_message(request, messages.SUCCESS, 'Товар успешно добавлен в список')
             return redirect('index',  cat_id=cat.id)
         else:
             return super().get(request, *args, **kwargs)
@@ -134,7 +130,6 @@ class GoodUpdate(UpdateView, GoodEditMixin, GoodEditView):
     form_class = GoodForm
     template_name = 'good_edit.html'
     pk_url_kwarg = 'good_id'
-    # fields = '__all__'
 
     def post(self, request, *args, **kwargs):
         cat_id = Good.objects.get(pk=kwargs['good_id']).category.id
@@ -164,7 +159,6 @@ class _GoodUpdate(TemplateView):
             return redirect('index', cat_id=good.category.id)
         else:
             return super().get(request, *args, **kwargs)
-
 
 
 class GoodDelete(DeleteView, GoodEditMixin, GoodEditView):
