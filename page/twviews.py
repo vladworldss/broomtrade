@@ -6,10 +6,10 @@ from django.views.generic.edit import (
     CreateView, UpdateView, DeleteView, ProcessFormView
 )
 from django.urls import reverse
-from django.contrib import messages
+from django.contrib import messages, sessions
 from django.contrib.messages.views import SuccessMessageMixin
 from .models import Category, Good
-from .forms import GoodForm
+from .forms import GoodForm, CategoryForm, CategoryFormset
 
 
 class CategoryListMixin(ContextMixin):
@@ -100,7 +100,9 @@ class _GoodCreate(TemplateView):
             cat = Category.objects.first()
         else:
             cat = Category.objects.get(pk=self.kwargs['cat_id'])
-        self.form = GoodForm(initial={'category': cat})
+
+        in_stock = request.session.get('in_stock', True)
+        self.form = GoodForm(initial={'category': cat, 'in_stock': in_stock})
         return super().get(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
@@ -118,6 +120,7 @@ class _GoodCreate(TemplateView):
             cat = Category.objects.get(pk=self.kwargs['cat_id'])
         self.form = GoodForm(request.POST)
         if self.form.is_valid():
+            request.session['in_stock'] = self.form.cleaned_data['in_stock']
             self.form.save()
             messages.add_message(request, messages.SUCCESS, 'Товар успешно добавлен в список')
             return redirect('index',  cat_id=cat.id)
@@ -176,3 +179,26 @@ class GoodDelete(DeleteView, GoodEditMixin, GoodEditView):
         context = super().get_context_data(**kwargs)
         context['good'] = Good.objects.get(pk=self.kwargs['good_id'])
         return context
+
+
+class CategoryListView(TemplateView):
+    template_name = "cats.html"
+    formset = None
+
+    def get(self, request, *args, **kw):
+        self.formset = CategoryFormset()
+        return super().get(request, *args, **kw)
+
+    def get_context_data(self, **kw):
+        context = super().get_context_data(**kw)
+        context["formset"] = self.formset
+        return context
+
+    def post(self, request, *args, **kw):
+        self.formset = CategoryFormset(request.POST)
+        if self.formset.is_valid():
+            self.formset.save()
+            #todo: сделать норм возврат
+            return redirect("index")
+        else:
+            return super().get(request, *args, **kw)
