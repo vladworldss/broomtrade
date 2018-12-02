@@ -118,7 +118,7 @@ class _GoodCreate(TemplateView):
             cat = Category.objects.first()
         else:
             cat = Category.objects.get(pk=self.kwargs['cat_id'])
-        self.form = GoodForm(request.POST)
+        self.form = GoodForm(request.POST, request.FILES)
         if self.form.is_valid():
             request.session['in_stock'] = self.form.cleaned_data['in_stock']
             self.form.save()
@@ -156,7 +156,7 @@ class _GoodUpdate(TemplateView):
 
     def post(self, request, *args, **kwargs):
         good = Good.objects.get(pk=self.kwargs['good_id'])
-        self.form = GoodForm(request.POST, instance=good)
+        self.form = GoodForm(request.POST, request.FILES, instance=good)
         if self.form.is_valid():
             self.form.save()
             return redirect('index', cat_id=good.category.id)

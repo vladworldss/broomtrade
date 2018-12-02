@@ -20,6 +20,14 @@ class Good(models.Model):
     description = models.TextField()
     category = models.ForeignKey(Category, null=True, blank=True, on_delete=models.SET_NULL)
     in_stock = models.BooleanField(default=True, db_index=True, verbose_name='В наличии')
+    thumbnail_width = models.PositiveSmallIntegerField(null=True, blank=True)
+    thumbnail_height = models.PositiveSmallIntegerField(null=True, blank=True)
+    thumbnail = models.ImageField(null=True,
+                                  blank = True,
+                                  upload_to='goods/thumbnails',
+                                  width_field='thumbnail_width',
+                                  height_field='thumbnail_height',
+                                  )
 
     class Meta:
         ordering = ('-price', 'name')

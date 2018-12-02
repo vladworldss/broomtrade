@@ -3,7 +3,8 @@
     Добавление товара::{{ category.name }}
 {% endblock %}
 {% block main %}
-    <form action="" method="post">
+    <h2>Добавление товара</h2>
+    <form action="" method="post" {% if form.is_multipart %} enctype="multipart/form-data" {% endif %}>
         {% csrf_token %}
         {{ form.as_p }}
     <input type="submit" value="Добавить">
