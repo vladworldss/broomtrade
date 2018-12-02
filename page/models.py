@@ -23,7 +23,7 @@ class Good(models.Model):
     thumbnail_width = models.PositiveSmallIntegerField(null=True, blank=True)
     thumbnail_height = models.PositiveSmallIntegerField(null=True, blank=True)
     thumbnail = models.ImageField(null=True,
-                                  blank = True,
+                                  blank=True,
                                   upload_to='goods/thumbnails',
                                   width_field='thumbnail_width',
                                   height_field='thumbnail_height',
@@ -40,6 +40,19 @@ class Good(models.Model):
             return '+'
         else:
             return ''
+
+    def save(self, *args, **kw):
+        try:
+            this_record = Good.objects.get(id=self.id)
+            if this_record.thumbnail != self.thumbnail:
+                this_record.thumbnail.delete(save=False)
+        except Good.DoesNotExist:
+            pass
+        return super().save(*args, **kw)
+
+    def delete(self, *args, **kw):
+        self.thumbnail.delete(save=False)
+        return super().delete(*args, **kw)
 
     def __str__(self):
         s = self.name
