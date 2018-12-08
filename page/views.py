@@ -31,3 +31,5 @@ def good(request, good_id):
     except Good.DoesNotExist:
         raise Http404
     return render(request, 'good.html', {'cats': cats, 'good': good, 'pn': page_num})
+
+

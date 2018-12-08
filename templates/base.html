@@ -4,6 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <link type="text/css" href="{% static "main.css" %}" rel="stylesheet">
+    {% block additional_css %}
+    {% endblock %}
+    {% block additional_js %}
+    {% endblock %}
     <title>{% block title %}{% endblock %} :: Все для уборки</title>
 </head>
 <body>

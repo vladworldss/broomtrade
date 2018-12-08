@@ -8,8 +8,9 @@ from django.views.generic.edit import (
 from django.urls import reverse
 from django.contrib import messages, sessions
 from django.contrib.messages.views import SuccessMessageMixin
+from django.contrib.auth import authenticate, login, logout
 from .models import Category, Good, BlogArticle
-from .forms import GoodForm, CategoryForm, CategoryFormset
+from .forms import GoodForm, CategoryForm, CategoryFormset, LoginForm
 
 
 class CategoryListMixin(ContextMixin):
@@ -218,3 +219,38 @@ class BlogUpdate(TemplateView):
             pass
         else:
             return redirect("login")
+
+
+class LoginView(TemplateView):
+    form = None
+    template_name = 'login.html'
+
+    def get(self, request, *args, **kw):
+        self.form = LoginForm()
+        return super().get(request, *args, **kw)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['form'] = self.form
+        return context
+
+    def post(self, request, *args, **kw):
+        self.form = LoginForm(request.POST)
+        if self.form.is_valid():
+            user = authenticate(username=self.form.cleaned_data['username'],
+                                password=self.form.cleaned_data['password']
+                                )
+            if user and user.is_active:
+                login(request, user)
+                return redirect('index')
+        else:
+            return super().get(request, *args, **kw)
+
+
+class LogoutView(TemplateView):
+    template_name = 'logout.html'
+
+    def get(self, request, *args, **kw):
+        logout(request)
+        # return redirect('index')
+        return super().get(request, *args, **kw)
