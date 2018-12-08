@@ -27,7 +27,7 @@ class GoodForm(forms.ModelForm):
     )
     in_stock = forms.BooleanField(initial=True, label='Есть в наличии')
     price = forms.FloatField(label='Цена', validators=(validate_positive, ))
-    thumbnail = forms.ImageField(label='Есть в наличии')
+    thumbnail = forms.ImageField(label='Есть в наличии', required=False)
     error_messages = {'required': 'Укажите файл изображения',
                       'invalid_image': 'Изображение должно быть сохранено в формате, '
                                        'поддерживаемом сайтом'

@@ -8,7 +8,7 @@ from django.views.generic.edit import (
 from django.urls import reverse
 from django.contrib import messages, sessions
 from django.contrib.messages.views import SuccessMessageMixin
-from .models import Category, Good
+from .models import Category, Good, BlogArticle
 from .forms import GoodForm, CategoryForm, CategoryFormset
 
 
@@ -96,14 +96,17 @@ class _GoodCreate(TemplateView):
     template_name = 'good_add.html'
 
     def get(self, request, *args, **kwargs):
-        if self.kwargs['cat_id'] is None:
-            cat = Category.objects.first()
-        else:
-            cat = Category.objects.get(pk=self.kwargs['cat_id'])
+        if request.user.is_authenticated:
+            if self.kwargs['cat_id'] is None:
+                cat = Category.objects.first()
+            else:
+                cat = Category.objects.get(pk=self.kwargs['cat_id'])
 
-        in_stock = request.session.get('in_stock', True)
-        self.form = GoodForm(initial={'category': cat, 'in_stock': in_stock})
-        return super().get(request, *args, **kwargs)
+            in_stock = request.session.get('in_stock', True)
+            self.form = GoodForm(initial={'category': cat, 'in_stock': in_stock})
+            return super().get(request, *args, **kwargs)
+        else:
+            return redirect('login/?next=' + request.path)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -202,3 +205,16 @@ class CategoryListView(TemplateView):
             return redirect("index")
         else:
             return super().get(request, *args, **kw)
+
+# RAW View
+class BlogUpdate(TemplateView):
+    template_name = "cats.html"
+    formset = None
+
+    def get(self, request, *args, **kw):
+        blog = BlogArticle.objects.get(pk=self.kwargs["blog_id"])
+        if blog.user == request.user:
+            # some formset logic
+            pass
+        else:
+            return redirect("login")
