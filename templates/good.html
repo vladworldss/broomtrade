@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load comments %}
 {% block title %}
     {{ good.name }} :: {{ good.category.name }}
 {% endblock %}
@@ -11,4 +12,6 @@
         {% url "index" cat_id=good.category.id as category_url%}
         <a href="{{ category_url }}?page={{ pn }}">Назад</a>
     </p>
+    <p>&nbsp;</p>
+    {% render_comment_form for good %}
 {% endblock %}

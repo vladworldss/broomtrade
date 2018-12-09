@@ -37,6 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
+    'django_comments',
     'page',
 ]
 
@@ -127,3 +129,6 @@ LOGIN_REDIRECT_URL = '/goods/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'uploads')
 TEMPLATE_DIRS = (os.path.join(BASE_DIR, 'templates'), )
 STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'), )
+SITE_ID = 1
+COMMENT_MAX_LENGHT = 1024
+COMMENTS_HIDE_REMOVED = False

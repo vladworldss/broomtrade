@@ -66,4 +66,4 @@ class BlogArticle(models.Model):
     title = models.CharField(max_length=256, unique_for_month='pubdate')
     pubdate = models.DateField()
     updated = models.DateTimeField(auto_now=True)
-    user = models.ForeignKey(User, on_delete=models.DO_NOTHING)
+    user = models.ForeignKey(User, on_delete=models.DO_NOTHING, blank=True, null=True)
