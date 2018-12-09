@@ -15,18 +15,6 @@
     <p>&nbsp;</p>
     {% get_comment_count for good as good_comments_count %}
     <p>Всего комментариев: {{ good_comments_count }}.</p>
-    {% get_comment_list for good as good_comments %}
-    {% for comment in good_comments %}
-        {% if comment.is_removed %}
-            <p class="comment-removed">Комментарий удален.</p>
-        {% else %}
-            <div class="comment">
-                <div class="user">{{ comment.user_name }}</div>
-                <div class="content">{{ comment.comment }}</div>
-                <div class="date">{{ comment.submit_date }}</div>
-            </div>
-        {% endif %}
-        <p>&nbsp;</p>
-    {% endfor %}
+    {% render_comment_list for good%}
     {% render_comment_form for good %}
 {% endblock %}
