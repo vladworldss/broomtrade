@@ -13,5 +13,9 @@
         <a href="{{ category_url }}?page={{ pn }}">Назад</a>
     </p>
     <p>&nbsp;</p>
+    {% get_comment_count for good as good_comments_count %}
+    <p>Всего комментариев: {{ good_comments_count }}.</p>
+    {% render_comment_list for good %}
+    <p>&nbsp;</p>
     {% render_comment_form for good %}
 {% endblock %}
