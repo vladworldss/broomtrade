@@ -70,3 +70,21 @@ body{
 #pagination #next-page {
     float: right;
 }
+.comment{
+    border: 1px solid #cccccc;
+}
+.comment div{
+    padding: 4px;
+}
+.comment .user{
+    background-color: #eeeeee;
+    font-weight: bold;
+}
+.comment .date{
+    background-color: #eeeeee;
+    font-style: italic;
+    text-align: right;
+}
+.comment-removed{
+    font-weight: bold;
+}
