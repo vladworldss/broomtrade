@@ -1,6 +1,8 @@
 # coding: utf-8
 from django.db import models
 from django.contrib.auth.models import User
+from django_comments.moderation import CommentModerator, moderator
+from django.urls import reverse
 
 
 class Category(models.Model):
@@ -55,6 +57,9 @@ class Good(models.Model):
         self.thumbnail.delete(save=False)
         return super().delete(*args, **kw)
 
+    def get_absolute_url(self):
+        return reverse('good', kwargs={'good_id': self.id})
+
     def __str__(self):
         s = self.name
         if not self.in_stock:
@@ -67,3 +72,13 @@ class BlogArticle(models.Model):
     pubdate = models.DateField()
     updated = models.DateTimeField(auto_now=True)
     user = models.ForeignKey(User, on_delete=models.DO_NOTHING, blank=True, null=True)
+    enable_comments = models.BooleanField(default=True)
+
+
+class BlogModerator(CommentModerator):
+    enable_field = "enable_comments"
+    email_notification = True
+    auto_moderate_field = "pubdate"
+    moderate_after = 30
+
+moderator.register(BlogArticle, BlogModerator)
