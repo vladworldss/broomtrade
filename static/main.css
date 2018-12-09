@@ -88,3 +88,6 @@ body{
 .comment-removed{
     font-weight: bold;
 }
+.honeypot {
+    display: none;
+}

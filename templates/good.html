@@ -15,6 +15,6 @@
     <p>&nbsp;</p>
     {% get_comment_count for good as good_comments_count %}
     <p>Всего комментариев: {{ good_comments_count }}.</p>
-    {% render_comment_list for good%}
+    {% render_comment_list for good %}
     {% render_comment_form for good %}
 {% endblock %}

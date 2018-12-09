@@ -1,0 +1,24 @@
+{% load comments %}
+{% get_comment_form for good as form %}
+<form action="{% comment_form_target %}" method="post">
+    {% csrf_token %}
+    {% for field in form.hidden_fields %}
+        {{ field }}
+    {% endfor %}
+    {%  for field in form.visible_fields %}
+    <div class="form-field">
+        {%  if field.errors.count > 0 %}
+        <div class="error-list">
+            {{ field.errors }}
+        </div>
+        {%  endif %}
+        {% if field.name == "honeypot" %}
+            <div class="honeypot">{{ field }}</div>
+        {% else %}
+            <div class="label">{{ field.label }}</div>
+            <div class="control">{{ field }}</div>
+        {% endif %}
+    </div>
+    {% endfor %}
+    <div class="submit-button"><input type="submit" name="submit" value="Отправить"></div>
+</form>
