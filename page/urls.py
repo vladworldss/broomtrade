@@ -7,10 +7,13 @@ from page.twviews import (GoodListView, GoodDetailView, GoodCreate,
 
 urlpatterns = [
     # re_path(r'^(?:(?P<cat_id>\d+)/)?$', views.index, name='index'),
-    re_path(r'^(?:(?P<cat_id>\d+)/)?$', login_required(GoodListView.as_view()), name='index'),
+
+    # re_path(r'^(?:(?P<cat_id>\d+)/)?$', login_required(GoodListView.as_view()), name='index'),
+    re_path(r'^(?:(?P<cat_id>\d+)/)?$', GoodListView.as_view(), name='index'),
 
     # re_path(r'^good/(?P<good_id>\d+)/$', views.good, name="good")
     re_path(r'^good/(?P<good_id>\d+)/$', GoodDetailView.as_view(), name="good"),
+
     re_path(r'^(?P<cat_id>\d+)/add/$',
             permission_required("page.add_good")(_GoodCreate.as_view()),
             name='good_add'),
