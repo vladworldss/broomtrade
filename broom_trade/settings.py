@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'django_comments',
     'page',
+    'sorl.thumbnail',
 ]
 
 MIDDLEWARE = [
@@ -132,3 +133,4 @@ STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'), )
 SITE_ID = 1
 COMMENT_MAX_LENGHT = 1024
 COMMENTS_HIDE_REMOVED = False
+THUMBNAIL_DEBUG = True

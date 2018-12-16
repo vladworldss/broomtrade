@@ -1,9 +1,14 @@
 {% extends "base.html" %}
 {% load comments %}
+{% load thumbnail %}
 {% block title %}
     {{ good.name }} :: {{ good.category.name }}
 {% endblock %}
 {%  block main %}
+    {% thumbnail good.thumbnail "200x100" as im %}
+        <img src="{{ im.url }}">
+    {% endthumbnail %}
+    <p>{{  good.thumbnai.url }}</p>
     <h2>{{ good.name }}</h2>
     <p class="category">Категория: {{ good.category.name }}</p>
     <p>{{ good.description|linebreaksbr }}</p>

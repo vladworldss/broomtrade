@@ -3,7 +3,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django_comments.moderation import CommentModerator, moderator
 from django.urls import reverse
-
+from sorl.thumbnail import get_thumbnail
 
 class Category(models.Model):
     name = models.CharField(max_length=30, unique=True)
@@ -59,6 +59,9 @@ class Good(models.Model):
 
     def get_absolute_url(self):
         return reverse('good', kwargs={'good_id': self.id})
+
+    def get_image_200x200(self):
+        return get_thumbnail(self.thumbnail, '50x50', crop='center', colorspace='GRAY')
 
     def __str__(self):
         s = self.name
