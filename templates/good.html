@@ -17,6 +17,15 @@
         {% url "index" cat_id=good.category.id as category_url%}
         <a href="{{ category_url }}?page={{ pn }}">Назад</a>
     </p>
+
+    {% with names=good.tags.names %}
+        {% if names.count > 0 %}
+            <p>Теги: {% for name in names %}{% if not forloop.first %},
+            {% endif %}<a href="{% url "index" cat_id=good.category.id %}
+            ?tag={{ name|urlencode }}">{{ name }}</a>{% endfor %}</p>
+        {% endif %}
+    {% endwith %}
+
     <p>&nbsp;</p>
     {% get_comment_count for good as good_comments_count %}
     <p>Всего комментариев: {{ good_comments_count }}.</p>

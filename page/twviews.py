@@ -41,7 +41,11 @@ class GoodListView(ListView, CategoryListMixin):
 
     def get_queryset(self):
         # вызывается позже, чем get_context_data --> self.cat уже будет
-        return Good.objects.filter(category=self.cat).order_by('name')
+        goods = Good.objects.filter(category=self.cat).order_by('name')
+        tags_name = self.request.GET.get('tag')
+        if tags_name:
+            goods = goods.filter(tags__name=tags_name)
+        return goods
 
 
 class GoodDetailView(DetailView, CategoryListMixin):

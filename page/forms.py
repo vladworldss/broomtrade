@@ -1,6 +1,7 @@
 from django import forms
 from django.forms.models import modelformset_factory
 from .models import Category, Good
+from taggit.forms import TagField
 from .validator import validate_positive, validate_price
 
 NAME_ERROR_LIST = {'required': 'Укажите название товара',
@@ -32,6 +33,7 @@ class GoodForm(forms.ModelForm):
                       'invalid_image': 'Изображение должно быть сохранено в формате, '
                                        'поддерживаемом сайтом'
                       }
+    tags = TagField(label='Теги')
 
     def clean(self):
         cleaned_data = super().clean()

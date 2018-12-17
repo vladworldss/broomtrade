@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from django_comments.moderation import CommentModerator, moderator
 from django.urls import reverse
 from sorl.thumbnail import get_thumbnail
+from taggit.managers import TaggableManager
 
 class Category(models.Model):
     name = models.CharField(max_length=30, unique=True)
@@ -31,6 +32,7 @@ class Good(models.Model):
                                   width_field='thumbnail_width',
                                   height_field='thumbnail_height',
                                   )
+    tags = TaggableManager(blank=True, verbose_name='Теги')
 
     class Meta:
         ordering = ('-price', 'name')
@@ -62,6 +64,14 @@ class Good(models.Model):
 
     def get_image_200x200(self):
         return get_thumbnail(self.thumbnail, '50x50', crop='center', colorspace='GRAY')
+
+    def make_tag(self, good_id, *tag_names):
+        try:
+            good = Good.objects.get(pk=good_id)
+            for name in tag_names:
+                good.tags.add(name)
+        except Good.DoesNotExist:
+            return
 
     def __str__(self):
         s = self.name

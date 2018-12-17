@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django_comments',
     'page',
     'sorl.thumbnail',
+    'taggit',
 ]
 
 MIDDLEWARE = [
