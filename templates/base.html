@@ -2,32 +2,16 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <link type="text/css" href="{% static "main.css" %}" rel="stylesheet">
+    <meta http-equiv="Content-Type" content="text/html"; charset="utf-8">
+    <link type="text/css" href="{% static "base.css" %}" rel="stylesheet">
     {% block additional_css %}
     {% endblock %}
     {% block additional_js %}
     {% endblock %}
-    <title>{% block title %}{% endblock %} :: Все для уборки</title>
+    <title>{% block title %}{% endblock %} :: Веник-Торг</title>
 </head>
 <body>
-    <div id="header">
-        <h1>Все для уборки</h1>
-    </div>
-    <div id="leftmenu">
-        <ul>
-            {% for cat in cats %}
-                {% url "index" cat_id=cat.id as cat_url  %}
-                <li><a href="{{ cat_url }}">{{ cat.name }}</a> </li>
-            {% endfor %}
-        </ul>
-    </div>
-    <div id="main">
-        {% block main %}
-        {% endblock %}
-    </div>
-    <div id="footer">
-        <p>Все права принадлежат разработчикам сайта.</p>
-    </div>
+    {% block content %}
+    {% endblock %}
 </body>
 </html>

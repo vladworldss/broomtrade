@@ -23,10 +23,7 @@ from django.views.generic import RedirectView
 admin.autodiscover()
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('login/', auth_views.LoginView.as_view(template_name='login.html'), name='login'),
-    path('logout/', auth_views.LogoutView.as_view(template_name='logout.html'), name='logout'),
-    re_path(r'^comments/', include('django_comments.urls')),
-    re_path(r'^goods/', include('page.urls')),
-    re_path(r'^favicon\.ico$',RedirectView.as_view(url='/static/images/favicon.ico')),
+    path('login/', auth_views.LoginView.as_view(template_name='registration/login.html'), name='login'),
+    path('logout/', auth_views.LogoutView.as_view(template_name='registration/logged_out.html'), name='logout'),
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

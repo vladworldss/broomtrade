@@ -106,4 +106,4 @@ ENV/
 .idea
 broom_trade/books/migrations
 broom_trade/db.sqlite3
-
+broom_trade/data/site.dat

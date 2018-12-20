@@ -39,9 +39,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.sites',
     'django_comments',
-    'page',
     'sorl.thumbnail',
     'taggit',
+    'precise_bbcode',
 ]
 
 MIDDLEWARE = [
@@ -82,7 +82,7 @@ WSGI_APPLICATION = 'broom_trade.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'NAME': os.path.join(BASE_DIR, 'data/site.dat'),
     }
 }
 
@@ -123,15 +123,23 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
-STATIC_URL = '/static/'
-MEDIA_URL = '/media/'
-LOGIN_URL = 'login'
-LOGOUT_URL = 'logout'
-LOGIN_REDIRECT_URL = '/goods/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'uploads')
 TEMPLATE_DIRS = (os.path.join(BASE_DIR, 'templates'), )
 STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'), )
+STATIC_URL = '/static/'
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'uploads')
+MEDIA_URL = '/media/'
+
+LOGIN_URL = 'login'
+LOGOUT_URL = 'logout'
+
 SITE_ID = 1
-COMMENT_MAX_LENGHT = 1024
-COMMENTS_HIDE_REMOVED = False
+
+THUMBNAIL_BASEDIR = 'thumbnails'
 THUMBNAIL_DEBUG = True
+
+MANAGERS = (('admin', 'vladworldss@yandex.ru'), )
+EMAIL_HOST = ''
+EMAIL_HOST_USER = ''
+EMAIL_HOST_PASSWORD = ''
+DEFAULT_FROM_EMAIL = ''
