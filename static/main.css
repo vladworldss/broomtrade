@@ -69,3 +69,49 @@
   font-size: smaller;
   font-style: italic;
 }
+.form {
+  width: 400px;
+  margin: 20px 0px 20px 0px;
+  border-collapse: collapse;
+}
+.bottom-indent {
+  margin-bottom: 50px;
+}
+.guestbook {
+  width: 100%;
+  margin-bottom: 20px;
+  border: 1px solid #cccccc;
+}
+.guestbook .user {
+  font-weight: bold;
+}
+.guestbook .posted {
+  font-style: italic;
+  text-align: right;
+  width: 200px;
+}
+.guestbook .content {
+  padding-top: 20px;
+}
+.honeypot {
+  display: none;
+}
+#messages-list {
+  background-color: #EEEEEE;
+  padding: 5px;
+}
+#messages-list .ERROR {
+  color: #FF0000;
+}
+#pagination {
+  margin-top: 20px;
+}
+#pagination #previous-page {
+  float: left;
+}
+#pagination #num-pages {
+  text-align: center;
+}
+#pagination #next-page {
+  float: right;
+}
