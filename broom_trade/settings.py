@@ -42,6 +42,8 @@ INSTALLED_APPS = [
     'sorl.thumbnail',
     'taggit',
     'precise_bbcode',
+
+    'main',
 ]
 
 MIDDLEWARE = [
@@ -132,6 +134,7 @@ MEDIA_URL = '/media/'
 
 LOGIN_URL = 'login'
 LOGOUT_URL = 'logout'
+LOGIN_REDIRECT_URL = 'main'
 
 SITE_ID = 1
 
