@@ -37,12 +37,14 @@ class NewUpdate(SuccessMessageMixin, PageNumberView, UpdateView, PageNumberMixin
   template_name = "new_edit.html"
   success_url = reverse_lazy("news_index")
   success_message = "Новость успешно изменена"
+  fields = '__all__'
 
 
 class NewDelete(PageNumberView, DeleteView, PageNumberMixin):
   model = New
   template_name = "new_delete.html"
   success_url = reverse_lazy("news_index")
+  fields = '__all__'
 
   def post(self, request, *args, **kwargs):
     messages.add_message(request, messages.SUCCESS, "Новость успешно удалена")
