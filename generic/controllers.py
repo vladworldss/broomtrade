@@ -13,6 +13,12 @@ class PageNumberView(View):
     def post(self, request, *args, **kwargs):
         pn = request.GET.get("page", '1')
         self.success_url = self.success_url + "?page=" + pn
-        self.success_url = self.success_url + "&search=" + request.GET.get("search", None)
-        self.success_url = self.success_url + "&tag=" + request.GET.get("tag", None)
+        try:
+            self.success_url = self.success_url + "&search=" + request.GET["search"]
+        except KeyError:
+            pass
+        try:
+            self.success_url = self.success_url + "&tag=" + request.GET["tag"]
+        except KeyError:
+            pass
         return super().post(request, *args, **kwargs)

@@ -1,3 +1,17 @@
+function getCaretPos(jQobject) {
+  var obj = jQobject.get(0);
+  obj.focus();
+  if (document.selection) {
+    var sel = document.selection.createRange();
+    var clone = sel.duplicate();
+    sel.collapse(true);
+    clone.moveToElementText(obj);
+    clone.setEndPoint("EndToEnd", sel);
+    return clone.text.length;
+  } else if (obj.selectionStart !== false) return obj.selectionStart;
+  else return 0;
+}
+
 function getImageList(url) {
   $.getJSON(url, function(data) {
     var images = $("#imagepool_image_list td.image");

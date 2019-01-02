@@ -151,3 +151,8 @@
 #imagepool_image_list td a.disabled:hover{
   display: none;
 }
+.form {
+  width: 400px;
+  margin: 20px 0px 20px 0px;
+  border-collapse: collapse;
+}
