@@ -23,7 +23,7 @@ class Good(models.Model):
         this_record.image.delete(save=False)
     except Good.DoesNotExist:
       pass
-    super(Good, self).save(*args, **kwargs)
+    super().save(*args, **kwargs)
 
   def delete(self, *args, **kwargs):
     self.image.delete(save=False)
@@ -48,7 +48,7 @@ class GoodImage(models.Model):
         this_record.image.delete(save=False)
     except GoodImage.DoesNotExist:
       pass
-    super(GoodImage, self).save(*args, **kwargs)
+    super().save(*args, **kwargs)
 
   def delete(self, *args, **kwargs):
     self.image.delete(save = False)

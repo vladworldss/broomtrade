@@ -14,4 +14,4 @@ class ImagePool(models.Model):
 
     def delete(self, *args, **kwargs):
         self.image.delete(save=False)
-        super(ImagePool, self).delete(*args, **kwargs)
+        super().delete(*args, **kwargs)

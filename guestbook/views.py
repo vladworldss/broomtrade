@@ -17,10 +17,10 @@ class GuestbookView(ArchiveIndexView, CategoryListMixin):
 
   def get(self, request, *args, **kwargs):
     self.form = GuestbookForm()
-    return super(GuestbookView, self).get(request, *args, **kwargs)
+    return super().get(request, *args, **kwargs)
 
   def get_context_data(self, **kwargs):
-    context = super(GuestbookView, self).get_context_data(**kwargs)
+    context = super().get_context_data(**kwargs)
     context["form"] = self.form
     return context
 
@@ -33,4 +33,4 @@ class GuestbookView(ArchiveIndexView, CategoryListMixin):
                              "Запись успешно добавлена в гостевую книгу")
       return redirect("guestbook")
     else:
-      return super(GuestbookView, self).get(request, *args, **kwargs)
+      return super().get(request, *args, **kwargs)

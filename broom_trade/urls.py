@@ -32,5 +32,7 @@ urlpatterns = [
     re_path(r'^news/', include('news.urls')),
     re_path(r'^imagepool/', include('imagepool.urls')),
     re_path(r'^categories/', include('categories.urls')),
+    re_path(r'^goods/', include('goods.urls')),
+    re_path(r'^comments/', include('django_comments.urls')),
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
