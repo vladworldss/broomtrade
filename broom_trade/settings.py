@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'imagepool',
     'categories',
     'goods',
+    'blog',
 ]
 
 MIDDLEWARE = [
