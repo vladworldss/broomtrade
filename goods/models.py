@@ -10,8 +10,8 @@ from categories.models import Category
 class Good(models.Model):
   name = models.CharField(max_length=50, unique=True, db_index=True, verbose_name="Название")
   category = models.ForeignKey(Category, verbose_name="Категория", on_delete=models.CASCADE)
-  description = models.TextField(verbose_name="Краткое описание")
-  content = models.TextField(verbose_name="Полное описание")
+  description = models.TextField(verbose_name="Краткое описание", blank=True)
+  content = models.TextField(verbose_name="Полное описание", blank=True)
   price = models.FloatField(db_index=True, verbose_name="Цена, руб.")
   price_acc = models.FloatField(null=True, blank=True, verbose_name="Цена с учетом скидки, руб.")
   in_stock = models.BooleanField(default=True, db_index=True, verbose_name="Есть в наличии")
