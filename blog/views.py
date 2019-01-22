@@ -1,10 +1,11 @@
 from django.views.generic.dates import ArchiveIndexView
+from django.views.generic.detail import DetailView
 from django.views.generic.base import ContextMixin
 from django.db.models import Q
 
 from blog.models import Blog
 from generic.controllers import PageNumberView
-from generic.mixins import CategoryListMixin
+from generic.mixins import CategoryListMixin, PageNumberMixin
 
 
 class SearchMixin(ContextMixin):
@@ -35,3 +36,8 @@ class BlogListView(PageNumberView, ArchiveIndexView, SearchMixin, CategoryListMi
         if self.tag:
             blog = blog.filter(tags__name=self.tag)
         return blog
+
+
+class BlogDetailView(PageNumberView, DetailView, SearchMixin, PageNumberMixin):
+    model = Blog
+    template_name = "blog.html"
