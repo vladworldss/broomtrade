@@ -10,7 +10,7 @@ class Blog(models.Model):
     title = models.CharField(max_length=100, unique_for_date="posted", verbose_name="Заголовок")
     description = models.TextField(verbose_name="Краткое содержание")
     content = models.TextField(verbose_name="Полное содержание")
-    posted = models.DateTimeField(default=datetime.now(), db_index=True, verbose_name="Опубликована")
+    posted = models.DateTimeField(default=datetime.now, db_index=True, verbose_name="Опубликована")
     is_commentable = models.BooleanField(default=True, verbose_name="Разрешены комментарии")
     tags = TaggableManager(blank=True, verbose_name="Теги")
     user = models.ForeignKey(User, editable=False, on_delete=models.CASCADE)

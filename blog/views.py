@@ -52,8 +52,10 @@ class BlogDetailView(PageNumberView, DetailView, SearchMixin, PageNumberMixin):
 class BlogCreate(SuccessMessageMixin, CreateView, CategoryListMixin):
     model = Blog
     template_name = "blog_add.html"
+    form = None
     success_url = reverse_lazy("blog_index")
     success_message = "Статья успешно создана"
+    fields = '__all__'
 
     def form_valid(self, form):
         form.instance.user = self.request.user
