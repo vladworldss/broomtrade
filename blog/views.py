@@ -100,3 +100,37 @@ class BlogUpdate(PageNumberView, TemplateView, SearchMixin, PageNumberMixin):
                 return super().get(request, *args, **kwargs)
         else:
             return redirect(reverse("login"))
+
+
+class BlogDelete(PageNumberView, TemplateView, SearchMixin, PageNumberMixin):
+    blog = None
+    template_name = "blog_delete.html"
+
+    def get(self, request, *args, **kwargs):
+        self.blog = Blog.objects.get(pk=self.kwargs["pk"])
+        if self.blog.user == request.user or request.user.is_superuser:
+            return super().get(request, *args, **kwargs)
+        else:
+            return redirect(reverse("login"))
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["blog"] = self.blog
+        return context
+
+    def post(self, request, *args, **kwargs):
+        self.blog = Blog.objects.get(pk=self.kwargs["pk"])
+        if self.blog.user == request.user or request.user.is_superuser:
+            self.blog.delete()
+            messages.add_message(request, messages.SUCCESS, "Статья успешно удалена")
+            redirect_url = reverse("blog_index") + "?page=" + self.request.GET["page"]
+
+            if "search" in self.request.GET:
+                redirect_url = redirect_url + "&search=" + self.request.GET["search"]
+
+            if "tag" in self.request.GET:
+                redirect_url = redirect_url + "&tag=" + self.request.GET["tag"]
+
+            return redirect(redirect_url)
+        else:
+            return redirect(reverse("login"))
