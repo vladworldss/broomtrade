@@ -2,6 +2,8 @@ from django.db import models
 from django_comments.moderation import CommentModerator, moderator
 from django.urls import reverse
 
+from sorl.thumbnail import ImageField
+
 from categories.models import Category
 
 
@@ -14,7 +16,7 @@ class Good(models.Model):
   price_acc = models.FloatField(null=True, blank=True, verbose_name="Цена с учетом скидки, руб.")
   in_stock = models.BooleanField(default=True, db_index=True, verbose_name="Есть в наличии")
   featured = models.BooleanField(default=False, db_index=True, verbose_name="Рекомендуемый")
-  image = models.ImageField(upload_to="goods/list", verbose_name="Основное изображение")
+  image = ImageField(upload_to="goods/list", verbose_name="Основное изображение")
 
   def save(self, *args, **kwargs):
     try:
@@ -39,7 +41,7 @@ class Good(models.Model):
 
 class GoodImage(models.Model):
   good = models.ForeignKey(Good, on_delete=models.CASCADE)
-  image = models.ImageField(upload_to="goods/detail", verbose_name="Дополнительное изображение")
+  image = ImageField(upload_to="goods/detail", verbose_name="Дополнительное изображение")
 
   def save(self, *args, **kwargs):
     try:

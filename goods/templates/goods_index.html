@@ -30,7 +30,7 @@
     </tr>
     {% for object in object_list %}
       <tr>
-        <td class="centered"><a href="{% url "goods_detail" pk=object.pk %}?page={{ page_obj.number }}&sort={{ sort }}&order={{ order }}"><img src="{% thumbnail object.image "base" %}"><a></td>
+        <td class="centered"><a href="{% url "goods_detail" pk=object.pk %}?page={{ page_obj.number }}&sort={{ sort }}&order={{ order }}"><img src="{% thumbnail object.image "200x200" %}"><a></td>
         <td><a href="{% url "goods_detail" pk=object.pk %}?page={{ page_obj.number }}&sort={{ sort }}&order={{ order }}">{{ object.name }}</a></td>
         <td>{{ object.description }}</td>
         <td class="centered">{% if object.price_acc > 0 %}<span class="old-price">{{ object.price }}</span><br>{{ object.price_acc }}{% else %}{{ object.price }}{% endif %}</td>

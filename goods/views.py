@@ -87,15 +87,13 @@ class GoodCreate(PageNumberView, TemplateView, SortMixin, PageNumberMixin):
     __success_msg = "Товар успешно добавлен"
 
     def get(self, request, *args, **kwargs):
-        if self.kwargs["pk"] == None:
+        if self.kwargs["pk"] is None:
             self.cat = Category.objects.first()
         else:
             self.cat = Category.objects.get(pk = self.kwargs["pk"])
         self.form = GoodForm(initial={"category": self.cat})
         self.formset = GoodImagesFormset()
 
-        from django.http import HttpResponse
-        # return HttpResponse("WTF")
         return super().get(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
@@ -115,7 +113,7 @@ class GoodCreate(PageNumberView, TemplateView, SortMixin, PageNumberMixin):
                 messages.add_message(request, messages.SUCCESS, self.__success_msg)
                 reverse_link = reverse("goods_index", kwargs={"pk": new_good.category.pk})
                 return redirect(self.make_full_url(reverse_link))
-        if self.kwargs["pk"] == None:
+        if self.kwargs["pk"] is None:
             self.cat = Category.objects.first()
         else:
             self.cat = Category.objects.get(pk=self.kwargs["pk"])

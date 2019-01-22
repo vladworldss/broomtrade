@@ -15,7 +15,7 @@
   <table class="list-table">
     {% for object in goods %}
       <tr>
-        <td class="centered"><a href="{% url "goods_detail" pk=object.pk %}"><img src="{% thumbnail object.image "base" %}"><a></td>
+        <td class="centered"><a href="{% url "goods_detail" pk=object.pk %}"><img src="{% thumbnail object.image "100x100" %}"><a></td>
         <td><a href="{% url "goods_detail" pk=object.pk %}">{{ object.name }}</a></td>
         <td>{{ object.description }}</td>
         <td class="centered">{% if object.price_acc > 0 %}

@@ -1,0 +1,11 @@
+На сайте был оставлен новый комментарий:
+    - товар:{{ content_object.name }} (http://localhost:8000
+    {{ content_object.get_absolute_url }});
+    - пользователь: {{ comment.user_name }};
+    - e-mail: {{ comment.user_email }};
+    - содержимое: {{ comment.coment }};
+    - дата: {{ comment.submit_date }};
+    - IP-address: {{ comment.ip_address }}.
+
+Гиперссылка на страницу комментария:
+http://localhost:8000/admin/comments/comment/{{ comment.pk }}/.
