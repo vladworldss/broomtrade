@@ -8,6 +8,10 @@
   {% if perms.goods.add_good %}
     <p><a href="{% url "goods_add" pk=category.pk %}?page={{ page_obj.number }}&sort={{ sort }}&order={{ order }}">Добавить товар</a></p>
   {% endif %}
+  <div class="feeds">
+    <a href="{% url "goods_feed_rss" pk=category.pk %}" target="_blank"><img src="{% static "rss.png" %}"></a>
+    <a href="{% url "goods_feed_atom" pk=category.pk %}" target="_blank"><img src="{% static "atom.png" %}"></a>
+  </div>
   <table class="list-table">
     <tr>
       <th>Миниатюра</th>
