@@ -50,6 +50,9 @@ INSTALLED_APPS = [
     'categories',
     'goods',
     'blog',
+    'contacts',
+    'about',
+    'howtobuy',
 ]
 
 MIDDLEWARE = [

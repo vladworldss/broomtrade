@@ -20,6 +20,10 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.views.generic import RedirectView
 
+from about.views import AboutView
+from contacts.views import ContactsView
+from howtobuy.views import HowToBuyView
+
 admin.autodiscover()
 urlpatterns = [
     re_path(r'^favicon\.ico$',RedirectView.as_view(url='/static/images/favicon.ico')),
@@ -35,5 +39,8 @@ urlpatterns = [
     re_path(r'^goods/', include('goods.urls')),
     re_path(r'^comments/', include('django_comments.urls')),
     re_path(r'^blog/', include('blog.urls')),
+    re_path(r'^about/', AboutView.as_view(), name='about'),
+    re_path(r'^contacts/', ContactsView.as_view(), name='contacts'),
+    re_path(r'^howtobuy/', HowToBuyView.as_view(), name='howtobuy'),
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
