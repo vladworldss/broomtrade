@@ -2,14 +2,52 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta http-equiv="Content-Type" content="text/html"; charset="utf-8">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
+
+    <meta name="author" content="vladworldss">
+    <meta property="og:url" content="http://www.broomtrade.com" />
+    <meta property="og:type" content="website" />
+    <meta property="og:description" content="Интернет-магазин метел и щеток" />
+
+    <title>{% block title %}{% endblock %} :: Веник-Торг</title>
+
+    <meta name="description" content="Интернет-магазин метел и щеток">
+
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+
+    <link rel="icon" href="/static/images/favicon.ico?" type="image/x-icon">
+    <link rel="shortcut icon" href="/static/images/favicon.ico?" type="image/x-icon">
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" crossorigin="anonymous">
+
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+
+    <!-- Custom Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,400" rel="stylesheet">
+
+
+    <link rel="stylesheet" href="/dist/bootsnipp.min.css">
+
+
+    <!-- Custom Fonts -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.1/animate.min.css" rel="stylesheet"/>
+
+    <!-- Custom CSS -->
+
     <link type="text/css" href="{% static "base.css" %}" rel="stylesheet">
     {% block additional_css %}
     {% endblock %}
     {% block additional_js %}
     {% endblock %}
-    <title>{% block title %}{% endblock %} :: Веник-Торг</title>
 </head>
+
 <body>
     {% block content %}
     {% endblock %}
