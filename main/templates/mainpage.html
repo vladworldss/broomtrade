@@ -11,6 +11,29 @@
         <p>{{ object.description}}</p>
         <p class="posted">{{ object.posted|date:"j.m.Y H:i:s" }}</p>
     {% endfor %}
+
+
+    {% for object in goods %}
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-4 col-xl-3 b1">B1</div>
+
+            <div>
+                <a href="{% url "goods_detail" pk=object.pk %}">{{ object.name }}</a>
+                {{ object.description }}
+                {% if object.price_acc > 0 %}
+                <span class="old-price">{{ object.price }}</span>
+            <br>{{ object.price_acc }}{% else %}{{ object.price }}{% endif %} руб.
+
+            </div>
+            <a href="{% url "goods_detail" pk=object.pk %}"><img src="{% thumbnail object.image "100x100" %}"><a>
+
+
+        </div>
+      </div>
+    {% endfor %}
+
+
   <h3>Рекомендуемые товары</h3>
   <table class="list-table">
     {% for object in goods %}

@@ -367,3 +367,24 @@ body {
   margin: 0px;
   padding: 0px;
 }
+.container-fluid {
+      text-align: center;
+      font-size: 40px;
+      font-weight: 300;
+      color: #fff;
+}
+.b1 {
+        background-color: rgba(255, 255, 255, 1);
+      color: #000;
+}
+
+  .b2 {
+    background-color: rgba(255, 255, 255, .66);
+  }
+
+  .b3 {
+    background-color: rgba(255, 255, 255, .33);
+  }
+  .b4 {
+    background-color: rgba(255, 255, 255, 0);
+  }
