@@ -1,5 +1,5 @@
 {% extends "main.html" %}
-{% load bbcode_tags %}
+{#{% load bbcode_tags %}#}
 {% load comments %}
 {% block title %}{{ object.title }}{% endblock %}
 {% block main %}
@@ -11,7 +11,13 @@
       {{ object.user.get_username }}
     {% endif %}
   </p>
-  <div>{{ object.content|bbcode|safe }}</div>
+
+    <div class="col-sm-12">
+        <div class="content-markdown">{{ object.content|safe }}</div>
+    <div class="content-markdown">{{ object.content|safe }}</div>
+    
+
+    </div>
   <p class="posted">{{ object.posted|date:"j.m.Y H:i:s" }}</p>
   {% with names=object.tags.names %}
     {% if names.count > 0 %}
